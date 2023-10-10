@@ -1,0 +1,353 @@
+﻿@*THIS IS FOR INSERT FUNCTIONALITY*@
+
+@model Proj_Depository.Models.DepositoryModel
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        #snackbar {
+            /*visibility: hidden;
+            min-width: 250px;
+            margin-left: -125px;
+            background-color: red;
+            color: white;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            bottom: 350px;
+            font-size: 17px;*/
+            visibility: hidden;
+            min-width: 250px;
+            min-height: 50px;
+            background-color: red;
+            color: white;
+            text-align: center;
+            vertical-align: middle;
+            border-radius: 2px;
+            padding: 16px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 17px;
+        }
+
+            #snackbar.show {
+                visibility: visible;
+            }
+
+        #savesnackbar {
+            visibility: hidden;
+            min-width: 250px;
+            min-height: 50px;
+            background-color: #7CFC00;
+            color: #000000;
+            text-align: center;
+            vertical-align: middle;
+            border-radius: 2px;
+            padding: 16px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 17px;
+            visibility: hidden;
+            /*min-width: 250px;
+            margin-left: -125px;
+            background-color: #7CFC00;
+            color: #000000;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            bottom: 350px;
+            font-size: 17px;*/
+        }
+
+            #savesnackbar.show {
+                visibility: visible;
+            }
+
+        #fieldsnackbar {
+            visibility: hidden;
+            min-width: 250px;
+            min-height: 50px;
+            background-color: yellow;
+            color: black;
+            text-align: center;
+            vertical-align: middle;
+            border-radius: 2px;
+            padding: 16px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 17px;
+            visibility: hidden;
+        }
+
+            #fieldsnackbar.show {
+                visibility: visible;
+            }
+
+        @@-webkit-keyframes fadein {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+
+            to {
+                bottom: 350px;
+                opacity: 1;
+            }
+        }
+
+        @@keyframes fadein {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+
+            to {
+                bottom: 350px;
+                opacity: 1;
+            }
+        }
+
+        @@-webkit-keyframes fadeout {
+            from {
+                bottom: 350px;
+                opacity: 1;
+            }
+
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
+        }
+
+        @@keyframes fadeout {
+            from {
+                bottom: 350px;
+                opacity: 1;
+            }
+
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
+        }
+    </style>
+
+    <link rel="stylesheet" href="~/Content/style.css" />
+    <link rel="javascript file" href="~/Scripts/script.js" />
+
+    <title>Add Depository Participant</title>
+</head>
+<body>
+    <div class="container">
+        <header>Add Depository Participant</header>
+
+        @using (Html.BeginForm("Add_Depository", "Depository", FormMethod.Post))
+        {
+            <div class="form first">
+                <div class="details personal">
+                    <span class="title">Depository Participant Details</span>
+
+                    <div class="fields">
+
+                        <div class="input-field">
+                            <label class="required">Depository</label>
+
+                            @Html.DropDownListFor(model => model.depo_id, new SelectList(ViewBag.depoList, "depo_id", "depo_code"), "--Select Depository--", new { @required = "required" })
+                           
+                        </div>
+
+                        <div class="input-field">
+                            <label class="required">DP Id</label>
+                            @Html.TextBoxFor(m => m.dp_id, new { placeholder = "Enter DP Id (max. 8 characters)", maxlength = 8, required = "required" })
+                        </div>
+
+                        <div class="input-field">
+                            <label class="required">Name</label>
+                            @Html.TextBoxFor(m => m.dp_name, new { placeholder = "Enter Full Name (max. 50 characters)", maxlength = 50, required = "required" })
+                        </div>
+
+                        <div class="input-field">
+                            <label class="required">Address 1</label>
+                            @Html.TextBoxFor(m => m.dp_addr1, new { placeholder = "Enter Address 1 (max. 30 characters)", maxlength = 30, required = "required" })
+                        </div>
+
+                        <div class="input-field">
+                            <label class="required">Address 2</label>
+                            @Html.TextBoxFor(m => m.dp_addr2, new { placeholder = "Enter Address 2 (max. 30 characters)", maxlength = 30, required = "required" })
+                        </div>
+
+                        <div class="input-field">
+                            <label>Address 3</label>
+                            @Html.TextBoxFor(m => m.dp_addr3, new { placeholder = "Enter Address 3 (max. 30 characters)", maxlength = 30 })
+                        </div>
+
+                        <div class="input-field">
+                            <label>Address 4</label>
+                            @Html.TextBoxFor(m => m.dp_addr4, new { placeholder = "Enter Address 4 (max. 30 characters)", maxlength = 30 })
+                        </div>
+
+                        <div class="input-field">
+                            <label class="required">City</label>
+                            @Html.TextBoxFor(m => m.dp_city, new { placeholder = "Enter City (max. 30 characters)", maxlength = 30, required = "required" })
+                        </div>
+
+                        <div class="input-field">
+                            <label class="required">State</label>
+                            @Html.TextBoxFor(m => m.dp_state, new { placeholder = "Enter State (max. 30 characters)", maxlength = 30, required = "required" })
+                        </div>
+
+                        <div class="input-field">
+                            <label class="required">Pin</label>
+                            @Html.TextBoxFor(m => m.dp_pincode, new { placeholder = "Enter Pin Code (max. 6 digits)", maxlength = 6, required = "required" })
+                        </div>
+
+                        <div class="input-field">
+                            <label class="required">Telephone</label>
+                            @Html.TextBoxFor(m => m.dp_tele_no, new { placeholder = "Enter Telephone No. (max. 15 digits)", maxlength = 15, required = "required" })
+                        </div>
+
+                        <div class="input-field">
+                            <label>Fax</label>
+                            @Html.TextBoxFor(m => m.dp_fax_no, new { placeholder = "Enter Fax No. (max. 15 digits)", maxlength = 15 })
+                        </div>
+
+                        <div class="input-field">
+                            <label class="required">Active Status</label>
+                            @Html.DropDownListFor(model => model.active_flag, new SelectList(new[] {
+                            new SelectListItem { Text = "ACTIVE", Value = "1" },
+                                new SelectListItem { Text = "INACTIVE", Value = "0" }
+                            }, "Value", "Text"), "--Select Status--", new { @required = "required" })
+                        </div>
+
+                        <div class="input-field">
+                        </div>
+
+                        <div id="snackbar">@ViewBag.retMsg</div>
+                        <div id="savesnackbar">@ViewBag.retMsg</div>
+                        <div id="fieldsnackbar">@ViewBag.retMsg</div>
+
+                        <div class="input-field" id="hidden">
+                            @Html.HiddenFor(m => m.dp_id_org)
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="nextBtn" id="saveBtn">
+                        <span class="btnText">Save</span>
+                    </button>
+
+
+                    @*@Html.ActionLink("<<Back", "List_Depository", "Depository", null, new { @class = "backBtn" })*@
+
+
+                    <a href="~/Depository/List_Depository"><i class="fa fa-arrow-circle-left" style="font-size:40px; color:#4070f4"></i></a>
+                </div>
+
+                @*<div class="nextBtn">*@
+                <!--<button class="nextBtn" id="backBtn">
+                    <span class="btnText">Back</span>
+                </button>-->
+                @*</div>*@
+            </div>
+        }
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+
+        function errorMsgFunction() {
+            var x = document.getElementById("snackbar");
+            x.className = "show";
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+        }
+
+        function saveMsgFunction() {
+            var x = document.getElementById("savesnackbar");
+            x.className = "show";
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+        }
+        function fieldMsgFunction() {
+            var x = document.getElementById("fieldsnackbar");
+            x.className = "show";
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+        }
+
+
+
+        $("document").ready(function ()
+        {
+            var RetCode = 0;
+            RetCode = @ViewBag.retCode;
+            if (RetCode == 0) {
+                errorMsgFunction();
+            }
+            else if (RetCode == 1) {
+                saveMsgFunction();
+
+                window.setTimeout(function () {
+                    //window.location.href = "Update_Depository?dp_id=@ViewBag.dpId";
+                    window.location.href = "List_Depository";
+                }, 5000);
+            }
+            else if (RetCode == 2) {
+                fieldMsgFunction();
+            }
+        });
+
+
+
+                    @*function myFunction() {
+                        var x = document.getElementById("snackbar");
+                        x.className = "show";
+                        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+                    }
+
+                    $("document").ready(function () {
+                            var RetCode = 0;
+                            RetCode = @ViewBag.RetCode;
+                            if (RetCode > 0) {
+                                myFunction();
+                            }
+                    });*@
+
+                    //document.getElementById("backBtn-2").onclick = function () {
+                    //    /*location.href = "www.google.com";*/
+                    //    alert("Hello");
+                    //};
+
+    </script>
+</body>
+</html>
