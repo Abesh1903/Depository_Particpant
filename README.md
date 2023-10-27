@@ -18,7 +18,7 @@ Depository Participant List is a web interface to record the Depository Particip
 Depository Participant List is built using the following technologies and tools:
 
 - **ASP.NET MVC**: A web application framework that implements the model–view–controller pattern for connecting front-end and back-end.
-- **Oracle Database**: A relational database management system (RDBMS) for storing data,
+- **Oracle Database**: A relational database management system (RDBMS) for storing data.
 
 
 
