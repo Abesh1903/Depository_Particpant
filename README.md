@@ -1,8 +1,5 @@
 # Depository Participant List
 
-<img width="946" alt="image" src="https://github.com/mayukh551/Expense-Tracker-React/assets/82811112/03912adc-94c6-456b-a0e3-6ba8fadebc4c">  
-
-
 
 ## Introduction
 
@@ -16,7 +13,7 @@ Depository Participant List is a web interface to record the Depository Particip
 
 
 
-## [Tech Stack](https://github.com/Abesh1903/Depository_Particpant)
+## Tech Stack
 
 Depository Participant List is built using the following technologies and tools:
 
